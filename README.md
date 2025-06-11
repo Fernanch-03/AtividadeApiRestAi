@@ -1,103 +1,130 @@
 # Product API
 
-This is a RESTful API for managing products. It allows users to create, read, update, and delete product information. The API is built using Node.js and Express.
+## General Description
+
+The Product API is a RESTful interface for product management, allowing create, read, update, and delete (CRUD) operations. It facilitates system integration and centralized control of product information.
+
+## Objectives
+
+- Centralize product management.
+- Enable easy integration with other systems.
+- Ensure data security and integrity.
+- Provide clear and well-documented endpoints.
 
 ## Features
 
-- Create a new product
-- Retrieve a list of products
-- Retrieve a specific product by ID
-- Update product information
-- Delete a product
+- Register new products.
+- Retrieve products (individual and list).
+- Update product information.
+- Remove products.
+- Filters and pagination in listings.
 
-## Project Structure
+## Technologies Used
 
-```
-product-api
-├── src
-│   ├── app.js                # Entry point of the application
-│   ├── controllers           # Contains the product controller
-│   │   └── productController.js
-│   ├── routes                # Defines the API routes
-│   │   └── productRoutes.js
-│   ├── models                # Contains the product model
-│   │   └── product.js
-│   ├── middlewares           # Contains validation middleware
-│   │   └── validation.js
-│   └── utils                 # Utility functions
-│       └── index.js
-├── package.json              # NPM configuration file
-└── README.md                 # Project documentation
-```
+- Node.js
+- Express.js
+- MongoDB
+- JWT for authentication
+- Docker (optional)
 
-## Installation
+## Endpoints
 
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```
-   cd product-api
-   ```
-3. Install the dependencies:
-   ```
-   npm install
-   ```
+| Method | Endpoint         | Description                |
+|--------|-----------------|----------------------------|
+| GET    | /products       | Lists all products         |
+| GET    | /products/:id   | Details a product          |
+| POST   | /products       | Creates a new product      |
+| PUT    | /products/:id   | Updates a product          |
+| DELETE | /products/:id   | Removes a product          |
 
-## Usage
+## Request and Response Examples
 
-To start the server, run the following command:
-```
-npm start
+### Create Product
+
+**Request**
+```http
+POST /products
+Content-Type: application/json
+
+{
+  "name": "Notebook",
+  "description": "Ultrathin notebook",
+  "price": 3500.00,
+  "stock": 10
+}
 ```
 
-The server will run on `http://localhost:3000`.
+**Response**
+```json
+{
+  "id": "60f7c2b5e1b1a2b3c4d5e6f7",
+  "name": "Notebook",
+  "description": "Ultrathin notebook",
+  "price": 3500.00,
+  "stock": 10,
+  "createdAt": "2024-06-01T12:00:00Z"
+}
+```
 
-## API Endpoints
+### List Products
 
-### Create a Product
+**Request**
+```http
+GET /products
+```
 
-- **POST** `/api/products`
-- Request Body:
-  ```json
+**Response**
+```json
+[
   {
-    "name": "Product Name",
-    "description": "Product Description",
-    "price": 100,
-    "stock": 50
+    "id": "60f7c2b5e1b1a2b3c4d5e6f7",
+    "name": "Notebook",
+    "description": "Ultrathin notebook",
+    "price": 3500.00,
+    "stock": 10
   }
-  ```
+]
+```
 
-### Get All Products
+### Update Product
 
-- **GET** `/api/products`
+**Request**
+```http
+PUT /products/60f7c2b5e1b1a2b3c4d5e6f7
+Content-Type: application/json
 
-### Get a Product by ID
+{
+  "price": 3400.00,
+  "stock": 8
+}
+```
 
-- **GET** `/api/products/:id`
+**Response**
+```json
+{
+  "id": "60f7c2b5e1b1a2b3c4d5e6f7",
+  "name": "Notebook",
+  "description": "Ultrathin notebook",
+  "price": 3400.00,
+  "stock": 8
+}
+```
 
-### Update a Product
+### Remove Product
 
-- **PUT** `/api/products/:id`
-- Request Body:
-  ```json
-  {
-    "name": "Updated Product Name",
-    "description": "Updated Description",
-    "price": 150,
-    "stock": 30
-  }
-  ```
+**Request**
+```http
+DELETE /products/60f7c2b5e1b1a2b3c4d5e6f7
+```
 
-### Delete a Product
+**Response**
+```json
+{
+  "message": "Product successfully removed."
+}
+```
 
-- **DELETE** `/api/products/:id`
+---
 
-## Validation
-
-The API includes input validation for creating and updating products to ensure that all required fields are present and correctly formatted.
-
-## License
-
-This project is licensed under the MIT License.
+> For authentication and additional details, see the full API documentation.
+ Product API
